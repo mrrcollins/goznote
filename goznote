@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ## GozNote
 ## Quickly create notes from the commandline or something like Alfred
