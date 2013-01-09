@@ -1,0 +1,26 @@
+#!/bin/sh
+
+## GozNote
+## Quickly create notes from the commandline or something like Alfred
+## v.01
+## 2013/01/09
+
+TITLE="${1}"
+AUTHOR="Ryan Collins"
+DATE=`date +"%Y-%m-%d"`
+EDITOR="/usr/local/bin/mvim + +startinsert"
+DEFAULTFOLDER="`defaults read ~/Library/Preferences/com.getdropbox.dropbox NSNavLastRootDirectory`/Dropbox/GozNote"
+
+if [ ! -d "${DEFAULTFOLDER}" ]; then
+    echo "${DEFAULTFOLDER} doesn't exist, creating..."
+    mkdir "${DEFAULTFOLDER}"
+fi
+
+if [ ! -f "${DEFAULTFOLDER}/${TITLE}.markdown" ]; then
+    echo -n "Creating "
+    echo "${DEFAULTFOLDER}/${TITLE}.markdown"
+    echo "% ${TITLE}\n% ${AUTHOR}\n% ${DATE}\n\n" > "${DEFAULTFOLDER}/${TITLE}.markdown"
+fi
+
+${EDITOR} "${DEFAULTFOLDER}/${TITLE}.markdown"
+
