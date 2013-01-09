@@ -5,11 +5,16 @@
 ## v.01
 ## 2013/01/09
 
-TITLE="${1}"
-AUTHOR="Ryan Collins"
-DATE=`date +"%Y-%m-%d"`
-EDITOR="/usr/local/bin/mvim + +startinsert"
-DEFAULTFOLDER="`defaults read ~/Library/Preferences/com.getdropbox.dropbox NSNavLastRootDirectory`/Dropbox/GozNote"
+if [ ! -f "~/.goznote" ]; then
+    echo "No config file, using defaults"
+    TITLE="${1}"
+    AUTHOR="`whoami`"
+    DATE=`date +"%Y-%m-%d"`
+    EDITOR="vim + +startinsert"
+    DEFAULTFOLDER="."
+else
+    . ~/.goznote
+fi
 
 if [ ! -d "${DEFAULTFOLDER}" ]; then
     echo "${DEFAULTFOLDER} doesn't exist, creating..."
@@ -22,5 +27,5 @@ if [ ! -f "${DEFAULTFOLDER}/${TITLE}.markdown" ]; then
     echo "% ${TITLE}\n% ${AUTHOR}\n% ${DATE}\n\n" > "${DEFAULTFOLDER}/${TITLE}.markdown"
 fi
 
-${EDITOR} "${DEFAULTFOLDER}/${TITLE}.markdown"
+#${EDITOR} "${DEFAULTFOLDER}/${TITLE}.markdown"
 
