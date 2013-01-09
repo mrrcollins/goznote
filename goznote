@@ -5,27 +5,28 @@
 ## v.01
 ## 2013/01/09
 
-if [ ! -f "~/.goznote" ]; then
+if [[ ! -f ~/.goznote ]]; then
     echo "No config file, using defaults"
-    TITLE="${1}"
+    TITLE="$@"
     AUTHOR="`whoami`"
     DATE=`date +"%Y-%m-%d"`
     EDITOR="vim + +startinsert"
     DEFAULTFOLDER="."
+    EXT="markdown"
 else
     . ~/.goznote
 fi
 
-if [ ! -d "${DEFAULTFOLDER}" ]; then
+if [[ ! -d ${DEFAULTFOLDER} ]]; then
     echo "${DEFAULTFOLDER} doesn't exist, creating..."
     mkdir "${DEFAULTFOLDER}"
 fi
 
-if [ ! -f "${DEFAULTFOLDER}/${TITLE}.markdown" ]; then
+if [[ ! -f ${DEFAULTFOLDER}/${TITLE}.${EXT} ]]; then
     echo -n "Creating "
-    echo "${DEFAULTFOLDER}/${TITLE}.markdown"
-    echo "% ${TITLE}\n% ${AUTHOR}\n% ${DATE}\n\n" > "${DEFAULTFOLDER}/${TITLE}.markdown"
+    echo "${DEFAULTFOLDER}/${TITLE}.${EXT}"
+    echo -e "% ${TITLE}\n% ${AUTHOR}\n% ${DATE}\n\n" > "${DEFAULTFOLDER}/${TITLE}.${EXT}"
 fi
 
-#${EDITOR} "${DEFAULTFOLDER}/${TITLE}.markdown"
+${EDITOR} "${DEFAULTFOLDER}/${TITLE}.${EXT}"
 
