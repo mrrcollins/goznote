@@ -23,12 +23,15 @@ if [[ ! -d ${DEFAULTFOLDER} ]]; then
     mkdir "${DEFAULTFOLDER}"
 fi
 
-if [[ ! -f ${DEFAULTFOLDER}/${TITLE}.${EXT} ]]; then
+if [[ ! -f ${DEFAULTFOLDER}/${TITLE}/${TITLE}.${EXT} ]]; then
+    echo "Creating directory structure..."
+    mkdir "${DEFAULTFOLDER}/${TITLE}"
+    mkdir "${DEFAULTFOLDER}/${TITLE}/Resources"
+    mkdir "${DEFAULTFOLDER}/${TITLE}/Research"
     echo -n "Creating "
-    echo "${DEFAULTFOLDER}/${TITLE}.${EXT}"
     SLUG=$(echo -n "${TITLE}" | sed -e 's/[^[:alnum:]]/-/g' | tr -s '-' | tr A-Z a-z)
-    echo -e "Title: ${TITLE}\nAuthor: ${AUTHOR}\nDate: ${DATE}\nSlug: ${SLUG}\nCategory: \nTags: \nStatus: draft\n\n" > "${DEFAULTFOLDER}/${TITLE}.${EXT}"
+    echo -e "Title: ${TITLE}\nAuthor: ${AUTHOR}\nDate: ${DATE}\nSlug: ${SLUG}\nCategory: \nTags: \nStatus: draft\n\n" > "${DEFAULTFOLDER}/${TITLE}/${TITLE}.${EXT}"
 fi
 
-${EDITOR} "${DEFAULTFOLDER}/${TITLE}.${EXT}"
+${EDITOR} "${DEFAULTFOLDER}/${TITLE}/${TITLE}.${EXT}"
 
