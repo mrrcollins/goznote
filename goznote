@@ -5,14 +5,15 @@
 ## v.01
 ## 2013/01/09
 
+TITLE="$@"
+AUTHOR="`whoami`"
+DATE=`date +"%Y-%m-%d"`
+EDITOR="vim + +startinsert"
+DEFAULTFOLDER="."
+EXT="markdown"
+
 if [[ ! -f ~/.goznote ]]; then
     echo "No config file, using defaults"
-    TITLE="$@"
-    AUTHOR="`whoami`"
-    DATE=`date +"%Y-%m-%d"`
-    EDITOR="vim + +startinsert"
-    DEFAULTFOLDER="."
-    EXT="markdown"
 else
     . ~/.goznote
 fi
