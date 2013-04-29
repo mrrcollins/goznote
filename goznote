@@ -17,6 +17,8 @@ DATE=`date +"%Y-%m-%d %H:%M"`
 EDITOR="vim + +startinsert"
 DEFAULTFOLDER="."
 EXT="markdown"
+PREPEND=`date +"%Y-%m-%d "`
+
 
 if [[ ! -f ~/.goznote ]]; then
     echo "No config file, using defaults"
@@ -24,20 +26,22 @@ else
     . ~/.goznote
 fi
 
+
+
 if [[ ! -d ${DEFAULTFOLDER} ]]; then
     echo "${DEFAULTFOLDER} doesn't exist, creating..."
     mkdir "${DEFAULTFOLDER}"
 fi
 
-if [[ ! -f ${DEFAULTFOLDER}/${TITLE}/${TITLE}.${EXT} ]]; then
+if [[ ! -f ${DEFAULTFOLDER}/${PREPEND}${TITLE}/${TITLE}.${EXT} ]]; then
     echo "Creating directory structure..."
-    mkdir "${DEFAULTFOLDER}/${TITLE}"
-    mkdir "${DEFAULTFOLDER}/${TITLE}/Resources"
-    mkdir "${DEFAULTFOLDER}/${TITLE}/Research"
+    mkdir "${DEFAULTFOLDER}/${PREPEND}${TITLE}"
+    mkdir "${DEFAULTFOLDER}/${PREPEND}${TITLE}/Resources"
+    mkdir "${DEFAULTFOLDER}/${PREPEND}${TITLE}/Research"
     echo -n "Creating "
     SLUG=$(echo -n "${TITLE}" | sed -e 's/[^[:alnum:]]/-/g' | tr -s '-' | tr A-Z a-z)
-    echo -e "Title: ${TITLE}\nAuthor: ${AUTHOR}\nDate: ${DATE}\nSlug: ${SLUG}\nCategory: \nTags: \nStatus: draft\n\n" > "${DEFAULTFOLDER}/${TITLE}/${TITLE}.${EXT}"
+    echo -e "Title: ${TITLE}\nAuthor: ${AUTHOR}\nDate: ${DATE}\nSlug: ${SLUG}\nCategory: \nTags: \nStatus: draft\n\n" > "${DEFAULTFOLDER}/${PREPEND}${TITLE}/${TITLE}.${EXT}"
 fi
 
-${EDITOR} "${DEFAULTFOLDER}/${TITLE}/${TITLE}.${EXT}"
+${EDITOR} "${DEFAULTFOLDER}/${PREPEND}${TITLE}/${TITLE}.${EXT}"
 
