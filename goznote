@@ -7,7 +7,7 @@
 
 TITLE="$@"
 AUTHOR="`whoami`"
-DATE=`date +"%Y-%m-%d"`
+DATE=`date +"%Y-%m-%d %H:%M"`
 EDITOR="vim + +startinsert"
 DEFAULTFOLDER="."
 EXT="markdown"
@@ -26,7 +26,8 @@ fi
 if [[ ! -f ${DEFAULTFOLDER}/${TITLE}.${EXT} ]]; then
     echo -n "Creating "
     echo "${DEFAULTFOLDER}/${TITLE}.${EXT}"
-    echo -e "% ${TITLE}\n% ${AUTHOR}\n% ${DATE}\n\n" > "${DEFAULTFOLDER}/${TITLE}.${EXT}"
+    SLUG=$(echo -n "${TITLE}" | sed -e 's/[^[:alnum:]]/-/g' | tr -s '-' | tr A-Z a-z)
+    echo -e "Title: ${TITLE}\nAuthor: ${AUTHOR}\nDate: ${DATE}\nSlug: ${SLUG}\nCategory: \nTags: \nStatus: draft\n\n" > "${DEFAULTFOLDER}/${TITLE}.${EXT}"
 fi
 
 ${EDITOR} "${DEFAULTFOLDER}/${TITLE}.${EXT}"
