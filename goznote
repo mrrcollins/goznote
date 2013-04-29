@@ -2,8 +2,14 @@
 
 ## GozNote
 ## Quickly create notes from the commandline or something like Alfred
-## v.01
-## 2013/01/09
+## v.02 - 2013/04/29
+## v.01 - 2013/01/09
+
+if [ $# -eq 0 ]; then
+    echo "GozNote v.02"
+    echo "Enter the name of the note as the argument"
+    exit
+fi
 
 TITLE="$@"
 AUTHOR="`whoami`"
