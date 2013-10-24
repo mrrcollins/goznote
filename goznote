@@ -18,6 +18,7 @@ EDITOR="vim + +startinsert"
 DEFAULTFOLDER="."
 EXT="markdown"
 PREPEND=`date +"%Y-%m-%d "`
+SLUG=$(echo -n "${TITLE}" | sed -e 's/[^[:alnum:]]/-/g' | tr -s '-' | tr A-Z a-z)
 
 
 if [[ ! -f ~/.goznote ]]; then
@@ -33,11 +34,10 @@ if [[ ! -d ${DEFAULTFOLDER} ]]; then
     mkdir "${DEFAULTFOLDER}"
 fi
 
-if [[ ! -f ${DEFAULTFOLDER}/${PREPEND}${TITLE}.${EXT} ]]; then
+if [[ ! -f ${DEFAULTFOLDER}/${PREPEND}${SLUG}.${EXT} ]]; then
     echo -n "Creating "
-    SLUG=$(echo -n "${TITLE}" | sed -e 's/[^[:alnum:]]/-/g' | tr -s '-' | tr A-Z a-z)
-    echo -e "Title: ${TITLE}\nAuthor: ${AUTHOR}\nDate: ${DATE}\nSlug: ${SLUG}\nCategory: \nTags: \n\n" > "${DEFAULTFOLDER}/${PREPEND}${TITLE}.${EXT}"
+    echo -e "Title: ${TITLE}\nAuthor: ${AUTHOR}\nDate: ${DATE}\nSlug: ${SLUG}\nCategory: \nTags: \n\n" > "${DEFAULTFOLDER}/${PREPEND}${SLUG}.${EXT}"
 fi
 
-${EDITOR} "${DEFAULTFOLDER}/${PREPEND}${TITLE}.${EXT}"
+${EDITOR} "${DEFAULTFOLDER}/${PREPEND}${SLUG}.${EXT}"
 
