@@ -1,0 +1,28 @@
+#!/bin/bash
+
+## GozJournal
+## Quickly create a new journal entry for the day, or if one exists
+## edit it by adding the current time at the bottom.
+# v.01 - 2017/11/26
+
+TITLE="Daily Journal for `date +"%Y-%m-%d"`"
+AUTHOR="`whoami`"
+DATE=`date +"%Y-%m-%d %H:%M"`
+EDITOR="vim + +startinsert"
+DEFAULTFOLDER="."
+EXT="markdown"
+PREPEND=`date +"%Y-%m-%d"`
+
+if [[ -f ~/.gozjournal ]]; then
+    . ~/.gozjournal
+fi
+
+
+if [[ ! -f ${DEFAULTFOLDER}/${PREPEND}.${EXT} ]]; then
+    echo -e "Title: ${TITLE}\nAuthor: ${AUTHOR}\nDate: ${DATE}\nSlug: ${SLUG}\nCategory: \nTags: \n\n" > "${DEFAULTFOLDER}/${PREPEND}.${EXT}"
+else
+    echo -e "\n`date +'%H:%M'`\n" >> "${DEFAULTFOLDER}/${PREPEND}.${EXT}"
+fi
+
+${EDITOR} "${DEFAULTFOLDER}/${PREPEND}.${EXT}"
+
