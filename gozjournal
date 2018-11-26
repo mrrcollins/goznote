@@ -3,26 +3,21 @@
 ## GozJournal
 ## Quickly create a new journal entry for the day, or if one exists
 ## edit it by adding the current time at the bottom.
+# v.02 - 2018/10/30 - A new journal for each year
 # v.01 - 2017/11/26
 
-TITLE="Daily Journal for `date +"%Y-%m-%d"`"
-AUTHOR="`whoami`"
-DATE=`date +"%Y-%m-%d %H:%M"`
 EDITOR="vim + +startinsert"
-DEFAULTFOLDER="."
 EXT="markdown"
-PREPEND=`date +"%Y-%m-%d"`
+YEAR=`date +"%Y"`
 
 if [[ -f ~/.gozjournal ]]; then
     . ~/.gozjournal
-fi
-
-
-if [[ ! -f ${DEFAULTFOLDER}/${PREPEND}.${EXT} ]]; then
-    echo -e "Title: ${TITLE}\nAuthor: ${AUTHOR}\nDate: ${DATE}\nSlug: ${SLUG}\nCategory: \nTags: \n\n" > "${DEFAULTFOLDER}/${PREPEND}.${EXT}"
 else
-    echo -e "\n`date +'%H:%M'`\n" >> "${DEFAULTFOLDER}/${PREPEND}.${EXT}"
+    echo "No config file, create ~/.gozjournal"
+    exit
 fi
 
-${EDITOR} "${DEFAULTFOLDER}/${PREPEND}.${EXT}"
+echo -e "\n`date +'%Y/%m/%d %H:%M'` - " >> "${DEFAULTFOLDER}/${YEAR}.${EXT}"
+
+${EDITOR} "${DEFAULTFOLDER}/${YEAR}.${EXT}"
 
