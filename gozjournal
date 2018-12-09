@@ -17,7 +17,8 @@ else
     exit
 fi
 
-echo -e "\n`date +'%Y/%m/%d %H:%M'` - " >> "${DEFAULTFOLDER}/${YEAR}.${EXT}"
+echo -e "\n`date +'%Y/%m/%d %H:%M'` - ${@}" >> "${DEFAULTFOLDER}/${YEAR}.${EXT}"
 
-${EDITOR} "${DEFAULTFOLDER}/${YEAR}.${EXT}"
-
+if [[ -z $@ ]]; then
+    ${EDITOR} "${DEFAULTFOLDER}/${YEAR}.${EXT}"
+fi
